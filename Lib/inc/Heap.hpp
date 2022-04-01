@@ -1,9 +1,14 @@
 #ifndef LIST_PAMSI_PROJECT_DEFINE
 #define LIST_PAMSI_PROJECT_DEFINE
 
-class Foo{
+namespace pamsi {
+
+class Heap_t {
+
 public:
     void Poo();
 };
 
-#endif //LIST_PAMSI_PROJECT_DEFINE
+} // namespace pamsi
+
+#endif // LIST_PAMSI_PROJECT_DEFINE
