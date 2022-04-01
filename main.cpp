@@ -6,10 +6,17 @@ using namespace std;
 
 int main()
 {
-    std::vector<int> input = {5, 12, 67, 4, 3, 6, 1, 1, 5, 4, 7, 4, 8, 45, 6, 34};
+    std::vector<int> input = {1, 10, 3, 4, 5, 6, 7};
+
+    pamsi::Heap_t test(10);
 
     for(auto& i : input)
-        cout << i << " ";
+        test.Insert(i);
+
+    cout << test._size << endl;
+
+    for(uint32_t i = 0; i < test._size; i++)
+        cout << test._tab[i] << " ";
 
     return 0;
 }
