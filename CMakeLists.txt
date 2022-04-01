@@ -16,6 +16,12 @@ add_compile_options(
         -Os
 )
 
+add_library(heap src/Heap.cpp inc/Heap.hpp fml/Heap.tpp)
+add_library(pair src/Pair.cpp inc/Pair.hpp fml/Pair.tpp)
+
+target_include_directories(heap PUBLIC . src inc fml)
+target_include_directories(pair PUBLIC . src inc fml)
+
 set(LIBS heap pair)
 
 add_executable(firmware main.cpp)
@@ -24,5 +30,3 @@ add_executable(firmware main.cpp)
 target_link_libraries(firmware ${LIBS})
 
 target_compile_options(firmware PUBLIC ${CPU_OPTIONS})
-
-add_subdirectory(Lib)
