@@ -6,9 +6,9 @@ using namespace std;
 
 int main()
 {
-    std::vector<int> input = {2, 5, 6, 9, 7};
+    std::vector<int> input = {2, 5, 6, 9};
 
-    pamsi::Heap_t test(10);
+    pamsi::Heap_t test(4);
 
     for(auto& i : input)
         test.Insert(i);

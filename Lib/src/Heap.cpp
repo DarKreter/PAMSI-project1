@@ -14,7 +14,17 @@ auto Heap_t::RightChild(size_t idx) const -> size_t { return (idx * 2) + 2; }
 
 void Heap_t::Insert(T object)
 {
-    // check if we have space
+    if(_size == _maxSize) {
+        _maxSize *= 2;
+
+        T* newTab = new T[_maxSize];
+
+        for(size_t i = 0; i < _size; i++)
+            newTab[i] = _tab[i];
+
+        delete[] _tab;
+        _tab = newTab;
+    }
 
     _tab[_size] = object;
 
