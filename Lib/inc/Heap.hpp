@@ -18,13 +18,18 @@ public:
     size_t LeftChild(size_t idx) const;
     size_t RightChild(size_t idx) const;
 
-    void UpHead(size_t idx);
+    void UpHeap(size_t idx);
+    void DownHeap(size_t idx);
     void Swap(size_t idx1, size_t idx2);
 
 public:
     Heap_t(uint32_t initialSize);
 
     void Insert(T object);
+    void removeMin();
+    [[nodiscard]] T Min() const;
+    [[nodiscard]] size_t Size() const;
+    [[nodiscard]] bool IsEmpty() const;
 };
 
 } // namespace pamsi
