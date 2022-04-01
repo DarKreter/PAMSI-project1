@@ -29,10 +29,13 @@ auto Heap_t<ValueType>::RightChild(size_t idx) const -> size_t
 template <typename ValueType>
 void Heap_t<ValueType>::Insert(PairType_t object)
 {
+    // Check if there is enough space on array and allocate new if not
     CheckMaxSize();
 
+    // Add new object at the end
     _tab[_size] = object;
 
+    // Fix heap
     UpHeap(_size++);
 }
 
@@ -55,18 +58,14 @@ void Heap_t<ValueType>::CheckMaxSize()
 template <typename ValueType>
 void Heap_t<ValueType>::Insert(size_t key, ValueType value)
 {
-    PairType_t object(key, value);
-
-    CheckMaxSize();
-
-    _tab[_size] = object;
-
-    UpHeap(_size++);
+    Insert(PairType_t(key, value));
 }
 
 template <typename ValueType>
 void Heap_t<ValueType>::UpHeap(size_t idx)
 {
+    // If the parent node is greater we swap places with him.
+    // Swapping until parent is smaller or node is already root of tree
     while(idx != 0 && _tab[idx] < _tab[Parent(idx)]) {
         Swap(idx, Parent(idx));
         idx = Parent(idx);
@@ -77,6 +76,8 @@ template <typename ValueType>
 void Heap_t<ValueType>::DownHeap(size_t idx)
 {
     size_t smallest = idx;
+    // If any child is smaller we swap places with him
+    // Doing until node is smallest among its children
     while(true) {
         if(LeftChild(idx) < _size && _tab[LeftChild(idx)] < _tab[idx])
             smallest = LeftChild(idx);
@@ -88,11 +89,6 @@ void Heap_t<ValueType>::DownHeap(size_t idx)
         }
         else
             break;
-    }
-
-    while(idx != 0 && _tab[idx] < _tab[Parent(idx)]) {
-        Swap(idx, Parent(idx));
-        idx = Parent(idx);
     }
 }
 
@@ -107,14 +103,18 @@ void Heap_t<ValueType>::Swap(size_t idx1, size_t idx2)
 template <typename ValueType>
 void Heap_t<ValueType>::removeMin()
 {
+    // Decrement size value and put last node on root place. (Root is the
+    // smallest one by definition)
     _tab[0] = _tab[--_size];
 
+    // Fix heap
     DownHeap(0);
 }
 
 template <typename ValueType>
 auto Heap_t<ValueType>::Min() const -> PairType_t
 {
+    // Root is the smallest value by definition
     return _tab[0];
 }
 
