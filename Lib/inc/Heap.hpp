@@ -2,17 +2,21 @@
 #define LIST_PAMSI_PROJECT_DEFINE
 
 #include <stdint.h>
+#include <string>
+#include <utility>
+
 
 namespace pamsi {
 
 class Heap_t {
-public:
-    typedef int16_t T;
+private:
+    typedef std::string T;
     typedef uint32_t size_t;
+    typedef std::pair<size_t, T> pairT;
 
     size_t _maxSize;
     size_t _size;
-    T* _tab;
+    pairT* _tab;
 
     size_t Parent(size_t idx) const;
     size_t LeftChild(size_t idx) const;
@@ -25,9 +29,9 @@ public:
 public:
     Heap_t(uint32_t initialSize);
 
-    void Insert(T object);
+    void Insert(pairT object);
     void removeMin();
-    [[nodiscard]] T Min() const;
+    [[nodiscard]] pairT Min() const;
     [[nodiscard]] size_t Size() const;
     [[nodiscard]] bool IsEmpty() const;
 };
