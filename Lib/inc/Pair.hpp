@@ -13,11 +13,14 @@ class Pair_t {
     W _second;
 
 public:
-    Pair_t() = delete;
+    Pair_t() = default;
     Pair_t(T t, W w);
     Pair_t(const Pair_t&);
     [[nodiscard]] T first() const;
     [[nodiscard]] W second() const;
+
+    void first(T t) { _first = t; }
+    void second(W w) { _second = w; }
 
     bool operator<(const Pair_t&);
     bool operator>(const Pair_t&);
