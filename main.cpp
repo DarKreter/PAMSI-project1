@@ -6,15 +6,52 @@
 #include <string>
 #include <vector>
 
+void ReadFromFile(std::vector<std::pair<uint32_t, std::string>>& v,
+                  std::string fileName);
+
 int main()
 {
-    std::vector<int> input = {2, 5, 6, 9};
-
-    pamsi::Heap_t<std::string> test(2);
-
+    // Create heap with initial size 2
+    pamsi::Heap_t<std::string> heap(2);
     std::vector<std::pair<uint32_t, std::string>> randomData;
+
+    // Save each line with its number as vector element
+    ReadFromFile(randomData, "Potop.txt");
+
+    // Shuffle vector content
+    auto rd = std::random_device{};
+    auto rng = std::default_random_engine{rd()};
+    std::shuffle(std::begin(randomData), std::end(randomData), rng);
+
+    // Insert elements of vector in random sequence
+    for(auto& pair : randomData)
+        heap.Insert(pair.first, pair.second);
+
+    // Get elements from heap and write them to output file
+    std::ofstream output1("result.txt");
+    std::ofstream output2("shuffled.txt");
+    uint32_t size = heap.Size();
+    for(uint32_t i = 0; i < size; i++) {
+        // Get the smallest value
+        pamsi::Pair_t p = heap.Min();
+        // Write it to file
+        output1 << p.first() << ". " << p.second() << std::endl;
+        // remove this value from heap
+        heap.removeMin();
+
+        // For reference write shuffled vector to another file
+        auto [number1, line1] = randomData[i];
+        output2 << number1 << ". " << line1 << std::endl;
+    }
+
+    return 0;
+}
+
+void ReadFromFile(std::vector<std::pair<uint32_t, std::string>>& v,
+                  std::string fileName)
+{
     std::ifstream file;
-    file.open("../PanTadeusz.txt");
+    file.open(fileName);
 
     if(!file.is_open()) {
         std::cout << "Error opening file to read!" << std::endl;
@@ -27,28 +64,7 @@ int main()
     while(!file.eof()) {
         file >> ordinalNumber >> std::ws >> null;
         getline(file, line);
-        randomData.push_back(std::make_pair(ordinalNumber, line));
+        v.push_back(std::make_pair(ordinalNumber, line));
     }
     file.close();
-
-    auto rd = std::random_device{};
-    auto rng = std::default_random_engine{rd()};
-    std::shuffle(std::begin(randomData), std::end(randomData), rng);
-
-    for(auto& pair : randomData)
-        test.Insert(pair.first, pair.second);
-
-    std::ofstream output1("../output1.txt");
-    std::ofstream output2("../output2.txt");
-    uint32_t size = test.Size();
-    for(uint32_t i = 0; i < size; i++) {
-        pamsi::Pair_t p = test.Min();
-        output1 << p.first() << ". " << p.second() << std::endl;
-        test.removeMin();
-
-        auto [number1, line1] = randomData[i];
-        output2 << number1 << ". " << line1 << std::endl;
-    }
-
-    return 0;
 }
