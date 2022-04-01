@@ -1,10 +1,6 @@
 #ifndef PAIR_PAMSI_PROJECT_DEFINE
 #define PAIR_PAMSI_PROJECT_DEFINE
 
-#include <stdint.h>
-#include <string>
-#include <utility>
-
 namespace pamsi {
 
 template <typename T, typename W>

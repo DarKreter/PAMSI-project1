@@ -1,4 +1,7 @@
 #include "Pair.hpp"
+#include <stdint.h>
+#include <string>
+
 
 namespace pamsi {
 
