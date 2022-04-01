@@ -16,7 +16,7 @@ add_compile_options(
         -Os
 )
 
-set(LIBS LIST)
+set(LIBS heap)
 
 add_executable(firmware main.cpp)
 
