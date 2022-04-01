@@ -9,14 +9,20 @@
 void ReadFromFile(std::vector<std::pair<uint32_t, std::string>>& v,
                   std::string fileName);
 
-int main()
+int main(int argc, char* argv[])
 {
+    if(argc != 2) {
+        std::cout << "Incorrect call paramters!" << std::endl;
+        exit(2);
+    }
+    std::string fileName = argv[1];
+
     // Create heap with initial size 2
     pamsi::Heap_t<std::string> heap(2);
     std::vector<std::pair<uint32_t, std::string>> randomData;
 
     // Save each line with its number as vector element
-    ReadFromFile(randomData, "Potop.txt");
+    ReadFromFile(randomData, fileName);
 
     // Shuffle vector content
     auto rd = std::random_device{};
