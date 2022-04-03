@@ -1,6 +1,6 @@
 Example usage:
 
-`cd tests1`
+`cd tests`
 
 `cmake ..`
 
